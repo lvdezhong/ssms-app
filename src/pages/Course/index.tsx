@@ -9,7 +9,7 @@ import { queryCourse, deleteCourse } from './service';
 const CourseList: React.FC<{}> = () => {
   const actionRef = useRef();
 
-  const handleDelete = async id => {
+  const handleDelete = async (id) => {
     try {
       await deleteCourse({
         cou_no: id,
@@ -19,11 +19,11 @@ const CourseList: React.FC<{}> = () => {
     } catch (error) {
       message.error('删除失败请重试！');
     }
-  }
+  };
 
-  const handleEdit = id => {
+  const handleEdit = (id) => {
     history.push(`/course/detail/${id}`);
-  }
+  };
 
   const columns = [
     {
@@ -51,9 +51,7 @@ const CourseList: React.FC<{}> = () => {
           <a style={{ marginRight: '5px' }} onClick={() => handleDelete(record.cou_no)}>
             删除
           </a>
-          <a onClick={() => handleEdit(record.cou_no)}>
-            修改
-          </a>
+          <a onClick={() => handleEdit(record.cou_no)}>修改</a>
         </>
       ),
     },
@@ -65,14 +63,14 @@ const CourseList: React.FC<{}> = () => {
         headerTitle="查询表格"
         actionRef={actionRef}
         toolBarRender={() => [
-          <Button type="primary">
-            <PlusOutlined onClick={() => history.push('/course/detail')} /> 新建
+          <Button key="add" type="primary" onClick={() => history.push('/course/detail')}>
+            <PlusOutlined /> 新建
           </Button>,
         ]}
-        request={params => {
+        request={(params) => {
           delete params.current;
           delete params.pageSize;
-          return queryCourse({ ...params })
+          return queryCourse({ ...params });
         }}
         columns={columns}
       />

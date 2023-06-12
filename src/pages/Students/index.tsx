@@ -10,7 +10,7 @@ import { queryStudents, deleteStudents } from './service';
 const StudentsList: React.FC<{}> = () => {
   const actionRef = useRef();
 
-  const handleDelete = async id => {
+  const handleDelete = async (id) => {
     try {
       await deleteStudents({
         stu_no: id,
@@ -20,11 +20,11 @@ const StudentsList: React.FC<{}> = () => {
     } catch (error) {
       message.error('删除失败请重试！');
     }
-  }
+  };
 
-  const handleEdit = id => {
+  const handleEdit = (id) => {
     history.push(`/students/detail/${id}`);
-  }
+  };
 
   const columns = [
     {
@@ -38,14 +38,14 @@ const StudentsList: React.FC<{}> = () => {
     {
       title: '性别',
       dataIndex: 'stu_sex',
-      render: value => value === '0' ? '男' : '女'
+      render: (value) => (value === '0' ? '男' : '女'),
     },
     {
       title: '出生日期',
       dataIndex: 'stu_birthday',
-      render: value => {
+      render: (value) => {
         return moment(value).format('YYYY-MM-DD');
-      }
+      },
     },
     {
       title: '专业',
@@ -60,9 +60,7 @@ const StudentsList: React.FC<{}> = () => {
           <a style={{ marginRight: '5px' }} onClick={() => handleDelete(record.stu_no)}>
             删除
           </a>
-          <a onClick={() => handleEdit(record.stu_no)}>
-            修改
-          </a>
+          <a onClick={() => handleEdit(record.stu_no)}>修改</a>
         </>
       ),
     },
@@ -74,14 +72,14 @@ const StudentsList: React.FC<{}> = () => {
         headerTitle="查询表格"
         actionRef={actionRef}
         toolBarRender={() => [
-          <Button type="primary">
-            <PlusOutlined onClick={() => history.push('/students/detail')} /> 新建
+          <Button key="add" type="primary" onClick={() => history.push('/students/detail')}>
+            <PlusOutlined /> 新建
           </Button>,
         ]}
-        request={params => {
+        request={(params) => {
           delete params.current;
           delete params.pageSize;
-          return queryStudents({ ...params })
+          return queryStudents({ ...params });
         }}
         columns={columns}
       />

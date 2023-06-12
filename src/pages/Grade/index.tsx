@@ -9,7 +9,7 @@ import { queryGrade, deleteGrade } from './service';
 const GradeList: React.FC<{}> = () => {
   const actionRef = useRef();
 
-  const handleDelete = async id => {
+  const handleDelete = async (id) => {
     try {
       await deleteGrade({
         gra_id: id,
@@ -19,11 +19,11 @@ const GradeList: React.FC<{}> = () => {
     } catch (error) {
       message.error('删除失败请重试！');
     }
-  }
+  };
 
-  const handleEdit = id => {
+  const handleEdit = (id) => {
     history.push(`/grade/detail/${id}`);
-  }
+  };
 
   const columns = [
     {
@@ -59,9 +59,7 @@ const GradeList: React.FC<{}> = () => {
           <a style={{ marginRight: '5px' }} onClick={() => handleDelete(record.gra_id)}>
             删除
           </a>
-          <a onClick={() => handleEdit(record.gra_id)}>
-            修改
-          </a>
+          <a onClick={() => handleEdit(record.gra_id)}>修改</a>
         </>
       ),
     },
@@ -73,14 +71,14 @@ const GradeList: React.FC<{}> = () => {
         headerTitle="查询表格"
         actionRef={actionRef}
         toolBarRender={() => [
-          <Button type="primary">
-            <PlusOutlined onClick={() => history.push('/grade/detail')} /> 新建
+          <Button key="add" type="primary" onClick={() => history.push('/grade/detail')}>
+            <PlusOutlined /> 新建
           </Button>,
         ]}
-        request={params => {
+        request={(params) => {
           delete params.current;
           delete params.pageSize;
-          return queryGrade({ ...params })
+          return queryGrade({ ...params });
         }}
         columns={columns}
       />
