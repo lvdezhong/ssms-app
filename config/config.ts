@@ -78,10 +78,16 @@ export default defineConfig({
       redirect: '/students',
     },
     {
+      name: 'login',
+      path: '/login',
+      component: './Login',
+      layout: false,
+    },
+    {
       name: 'student.list',
       icon: 'table',
       path: '/students',
-      component: './Students'
+      component: './Students',
     },
     {
       name: 'student.detail',
@@ -93,7 +99,7 @@ export default defineConfig({
       name: 'course.list',
       icon: 'table',
       path: '/course',
-      component: './Course'
+      component: './Course',
     },
     {
       name: 'course.detail',
@@ -105,7 +111,7 @@ export default defineConfig({
       name: 'grade.list',
       icon: 'table',
       path: '/grade',
-      component: './Grade'
+      component: './Grade',
     },
     {
       name: 'grade.detail',

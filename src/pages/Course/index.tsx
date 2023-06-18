@@ -6,7 +6,7 @@ import { PageContainer } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
 import { queryCourse, deleteCourse } from './service';
 
-const CourseList: React.FC<{}> = () => {
+const CourseList: React.FC = () => {
   const actionRef = useRef();
 
   const handleDelete = async (id) => {

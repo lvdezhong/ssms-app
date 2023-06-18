@@ -16,7 +16,7 @@ const tailLayout = {
   wrapperCol: { offset: 4, span: 20 },
 };
 
-const GradeDetail: React.FC<{}> = props => {
+const GradeDetail: React.FC = (props) => {
   const [studentsData, setStudentsData] = useState([]);
   const [courseData, setCourseData] = useState([]);
   const [form] = Form.useForm();
@@ -28,7 +28,7 @@ const GradeDetail: React.FC<{}> = props => {
         gra_id: id,
       });
       form.setFieldsValue(data);
-    }
+    };
 
     if (id) {
       try {
@@ -43,15 +43,15 @@ const GradeDetail: React.FC<{}> = props => {
     const getStudents = async () => {
       try {
         const { data } = await queryStudents();
-        const dataSource = data.map(item => ({
+        const dataSource = data.map((item) => ({
           label: item.stu_name,
           value: item.stu_no,
-        }))
+        }));
         setStudentsData(dataSource);
       } catch (err) {
         message.error('获取学生信息失败请重试！');
       }
-    }
+    };
     getStudents();
   }, []);
 
@@ -59,19 +59,19 @@ const GradeDetail: React.FC<{}> = props => {
     const getCourse = async () => {
       try {
         const { data } = await queryCourse();
-        const dataSource = data.map(item => ({
+        const dataSource = data.map((item) => ({
           label: item.cou_name,
           value: item.cou_no,
-        }))
+        }));
         setCourseData(dataSource);
       } catch (err) {
         message.error('获取课程信息失败请重试！');
       }
-    }
+    };
     getCourse();
   }, []);
 
-  const handleAdd = async values => {
+  const handleAdd = async (values) => {
     try {
       await addGrade(values);
       message.success('添加成功');
@@ -79,9 +79,9 @@ const GradeDetail: React.FC<{}> = props => {
     } catch (error) {
       message.error('添加失败请重试！');
     }
-  }
+  };
 
-  const handleUpdate = async values => {
+  const handleUpdate = async (values) => {
     values.gra_id = id;
     try {
       await updateGrade(values);
@@ -90,9 +90,9 @@ const GradeDetail: React.FC<{}> = props => {
     } catch (error) {
       message.error('更新失败请重试！');
     }
-  }
+  };
 
-  const onFinish = values => {
+  const onFinish = (values) => {
     if (id) {
       handleUpdate(values);
     } else {
@@ -102,12 +102,7 @@ const GradeDetail: React.FC<{}> = props => {
 
   return (
     <PageContainer title="成绩详情">
-      <Form
-        {...layout}
-        name="grade"
-        form={form}
-        onFinish={onFinish}
-      >
+      <Form {...layout} name="grade" form={form} onFinish={onFinish}>
         <Form.Item
           label="学生姓名"
           name="stu_no"
@@ -122,16 +117,10 @@ const GradeDetail: React.FC<{}> = props => {
         >
           <Select options={courseData} placeholder="请选择课程名称" />
         </Form.Item>
-        <Form.Item
-          label="成绩"
-          name="gra_score"
-        >
+        <Form.Item label="成绩" name="gra_score">
           <Input placeholder="请输入成绩" />
         </Form.Item>
-        <Form.Item
-          label="备注"
-          name="gra_remark"
-        >
+        <Form.Item label="备注" name="gra_remark">
           <TextArea placeholder="请输入备注" rows={4} />
         </Form.Item>
         <Form.Item {...tailLayout}>

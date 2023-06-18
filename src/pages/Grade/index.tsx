@@ -6,7 +6,7 @@ import { PageContainer } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
 import { queryGrade, deleteGrade } from './service';
 
-const GradeList: React.FC<{}> = () => {
+const GradeList: React.FC = () => {
   const actionRef = useRef();
 
   const handleDelete = async (id) => {
